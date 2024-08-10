@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profie</title>
+</head>
+<body>
+<?php
+session_start();
+include'dbconnection.php';
+//Checking session is valid or not
+if (strlen($_SESSION['id']==0)) {
+    header('location:logout.php');
+    } else{
+  
+  // for updating user info    
+  if(isset($_POST['Submit']))
+  {
+      $fname=$_POST['fname'];
+      $contact=$_POST['contact'];
+    $uid=intval($_GET['uid']);
+  $query=mysqli_query($con,"update users set fname='$fname' ,roll='$roll' , contactno='$contact' where roll='$uid'");
+  $_SESSION['msg']="Profile Updated successfully";
+  }
+}
+$roll = $_SESSION['roll'];
+
+echo "Welcome ".$roll;
+
+$ret=mysqli_query($con,"select * from users where roll = $roll");
+
+
+echo $row['email'];
+?>
+</body>
+</html>
+
+
+
